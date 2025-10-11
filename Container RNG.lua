@@ -72,76 +72,12 @@ spawn(function()
     end)
 end)
 
-local function performUpgrades()
-    if not getgenv().autoUpgrades then return end
-    
-    if getgenv().upgradeSettings.inventoryItems then
-        pcall(function()
-            local args = {
-                buffer.fromstring(":"),
-                buffer.fromstring("\254\001\000\006\017MaxInventoryItems")
-            }
-            game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
-        end)
-    end
-    
-    if getgenv().upgradeSettings.flowers then
-        pcall(function()
-            local args = {
-                buffer.fromstring(":"),
-                buffer.fromstring("\254\001\000\006\016MaxFlowersPlaced")
-            }
-            game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
-        end)
-    end
-    
-    if getgenv().upgradeSettings.customers then
-        pcall(function()
-            local args = {
-                buffer.fromstring(":"),
-                buffer.fromstring("\254\001\000\006\fMaxCustomers")
-            }
-            game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
-        end)
-    end
-    
-    if getgenv().upgradeSettings.enchantmentSlots then
-        pcall(function()
-            local args = {
-                buffer.fromstring(":"),
-                buffer.fromstring("\254\001\000\006\019MaxEnchantmentSlots")
-            }
-            game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
-        end)
-    end
-    
-    if getgenv().upgradeSettings.containers then
-        pcall(function()
-            local args = {
-                buffer.fromstring(":"),
-                buffer.fromstring("\254\001\000\006\rMaxContainers")
-            }
-            game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
-        end)
-    end
-    
-    if getgenv().upgradeSettings.plotItems then
-        pcall(function()
-            local args = {
-                buffer.fromstring(":"),
-                buffer.fromstring("\254\001\000\006\014MaxItemsOnPlot")
-            }
-            game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
-        end)
-    end
-end
-
 local function buyOPContainer()
     if not getgenv().autoBuyOPContainer then return end
     
     pcall(function()
         local args = {
-            buffer.fromstring("("),
+            buffer.fromstring("*"),
             buffer.fromstring("\254\000\000")
         }
         game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
@@ -156,189 +92,189 @@ local function buySelectedContainer()
     local containerRemotes = {
         ["Junk"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\rJunkContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
         end,
         ["Scratched"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\018ScratchedContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
         end,
         ["Sealed"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\015SealedContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
         end,
         ["Military"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\017MilitaryContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
         end,
         ["Metal"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\014MetalContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
         end,
         ["Frozen"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\015FrozenContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
         end,
         ["Lava"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\rLavaContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
         end,
         ["Corrupted"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\018CorruptedContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
         end,
         ["Stormed"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\016StormedContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
         end,
         ["Lightning"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\018LightningContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
         end,
         ["Infernal"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\017InfernalContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
         end,
         ["Mystic"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\015MysticContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
         end,
         ["Glitched"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\017GlitchedContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
         end,
         ["Astral"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\015AstralContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
         end,
         ["Dream"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\014DreamContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
         end,
         ["Celestial"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\018CelestialContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
         end,
         ["Fire"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\rFireContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
         end,
         ["Golden"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\015GoldenContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
         end,
         ["Diamond"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\016DiamondContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
         end,
         ["Emerald"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\016EmeraldContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
         end,
         ["Ruby"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\rRubyContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
         end,
         ["Sapphire"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\017SapphireContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
         end,
         ["Space"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\014SpaceContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
         end,
         ["Deep Space"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\018DeepSpaceContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
         end,
         ["Vortex"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\015VortexContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
         end,
         ["Black Hole"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\018BlackHoleContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
         end,
         ["Camo"] = function()
             local args = {
-                buffer.fromstring("4"),
+                buffer.fromstring("6"),
                 buffer.fromstring("\254\001\000\006\rCamoContainer")
             }
             game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
@@ -413,7 +349,7 @@ local function openSelectedContainerType()
                 if containerPos then
                     local distance = (containerPos - playerPos).Magnitude
                     
-                    if distance <= 150 then
+                    if distance <= 180 then
                         if containerModel:FindFirstChild("HumanoidRootPart") then
                             containerModel:SetPrimaryPartCFrame(CFrame.new(playerPos + Vector3.new(0, 2, 0)))
                         elseif containerModel:IsA("BasePart") then
@@ -461,7 +397,7 @@ local function openAllContainers()
                 if containerPos then
                     local distance = (containerPos - playerPos).Magnitude
                     
-                    if distance <= 150 then
+                    if distance <= 180 then
                         if containerModel:FindFirstChild("HumanoidRootPart") then
                             containerModel:SetPrimaryPartCFrame(CFrame.new(playerPos + Vector3.new(0, 2, 0)))
                         elseif containerModel:IsA("BasePart") then
@@ -511,7 +447,7 @@ local function autoOpenAllContainers()
                 if containerPos then
                     local distance = (containerPos - playerPos).Magnitude
                     
-                    if distance <= 100 then
+                    if distance <= 130 then
                         if containerModel:FindFirstChild("HumanoidRootPart") then
                             containerModel:SetPrimaryPartCFrame(CFrame.new(playerPos + Vector3.new(0, 2, 0)))
                         elseif containerModel:IsA("BasePart") then
@@ -547,7 +483,6 @@ local function collectContainerItems()
             local itemModel = item.Parent
             if itemModel and itemModel.Name:match("^ITEM_") then
                 
-                -- FIXED: replaced 'continue' with normal conditional
                 if not getgenv().pickedUpItems[itemModel.Name] then
                     
                     local itemPos
@@ -562,7 +497,7 @@ local function collectContainerItems()
                     if itemPos then
                         local distance = (itemPos - playerPos).Magnitude
                         
-                        if distance <= 50 then
+                        if distance <= 100 then
                             local inSellZone = false
                             pcall(function()
                                 local gameplay = workspace:FindFirstChild("Gameplay")
@@ -708,7 +643,7 @@ local function dropAllItems()
             wait(0.15)
             
             local args = {
-                buffer.fromstring("\v"),
+                buffer.fromstring("\r"),
                 buffer.fromstring("\254\000\000")
             }
             
@@ -767,6 +702,22 @@ automationSection1:addToggle("Auto Item Pickup", nil, function(value)
             while getgenv().autoItemPickup do
                 collectContainerItems()
                 wait(0.1)
+            end
+        end)
+    end
+end)
+
+automationSection1:addToggle("Auto Clear Pickup Cache (NEEDED FOR AFK)", nil, function(value)
+    getgenv().autoClearCache = value
+    
+    if value then
+        spawn(function()
+            while getgenv().autoClearCache do
+                wait(30)
+                if getgenv().autoClearCache then
+                    getgenv().pickedUpItems = {}
+                    venyx:Notify("Cache Cleared", "Pickup cache reset - will re-collect items & flowers")
+                end
             end
         end)
     end
@@ -852,6 +803,76 @@ automationSection2:addButton("Unload Hub", function()
     getgenv().autoBuyOPContainer = nil
     getgenv().autoUpgrades = nil
     getgenv().upgradeSettings = nil
+end)
+
+local mobilePage = venyx:addPage("Mobile", 5012544693)
+local mobileSection = mobilePage:addSection("UI Controls")
+
+mobileSection:addButton("Minimize UI", function()
+    venyx:toggle()
+    
+    -- Create mobile reopen button
+    wait(0.1)
+    if not game.CoreGui:FindFirstChild("PrestigeHubButton") then
+        local screenGui = Instance.new("ScreenGui")
+        screenGui.Name = "PrestigeHubButton"
+        screenGui.ResetOnSpawn = false
+        screenGui.Parent = game.CoreGui
+        
+        local reopenButton = Instance.new("TextButton")
+        reopenButton.Name = "ReopenButton"
+        reopenButton.Size = UDim2.new(0, 120, 0, 40)
+        reopenButton.Position = UDim2.new(0, 10, 0, 10)
+        reopenButton.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
+        reopenButton.BorderColor3 = Color3.fromRGB(10, 10, 10)
+        reopenButton.BorderSizePixel = 2
+        reopenButton.Text = "Prestige Hub"
+        reopenButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+        reopenButton.Font = Enum.Font.GothamBold
+        reopenButton.TextSize = 14
+        reopenButton.Parent = screenGui
+        
+        local corner = Instance.new("UICorner")
+        corner.CornerRadius = UDim.new(0, 6)
+        corner.Parent = reopenButton
+        
+        local dragging = false
+        local dragInput, mousePos, framePos
+        
+        reopenButton.InputBegan:Connect(function(input)
+            if input.UserInputType == Enum.UserInputType.MouseButton1 or input.UserInputType == Enum.UserInputType.Touch then
+                dragging = true
+                mousePos = input.Position
+                framePos = reopenButton.Position
+                
+                input.Changed:Connect(function()
+                    if input.UserInputState == Enum.UserInputState.End then
+                        dragging = false
+                    end
+                end)
+            end
+        end)
+        
+        reopenButton.InputChanged:Connect(function(input)
+            if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
+                dragInput = input
+            end
+        end)
+        
+        game:GetService("UserInputService").InputChanged:Connect(function(input)
+            if input == dragInput and dragging then
+                local delta = input.Position - mousePos
+                reopenButton.Position = UDim2.new(framePos.X.Scale, framePos.X.Offset + delta.X, framePos.Y.Scale, framePos.Y.Offset + delta.Y)
+            end
+        end)
+        
+        reopenButton.MouseButton1Click:Connect(function()
+            if not dragging then
+                venyx:toggle()
+                screenGui:Destroy()
+            end
+        end)
+    end
 end)
 
 local cratesPage = venyx:addPage("Crates", 5012544693)
@@ -951,7 +972,7 @@ itemsSection1:addButton("Sell All Items", function()
             wait(0.15)
             
             local args = {
-                buffer.fromstring("\v"),
+                buffer.fromstring("\r"),
                 buffer.fromstring("\254\000\000")
             }
             
@@ -990,7 +1011,7 @@ itemsSection1:addButton("Collect All Items", function()
                     if itemPos then
                         local distance = (itemPos - playerPos).Magnitude
 
-                        if distance <= 50 then
+                        if distance <= 100 then
 
                             local inSellZone = false
                             pcall(function()
@@ -1061,7 +1082,7 @@ upgradesSection1:addToggle("Auto Upgrade: Inventory Items", nil, function(value)
             while getgenv().upgradeSettings.inventoryItems do
                 pcall(function()
                     local args = {
-                        buffer.fromstring(":"),
+                        buffer.fromstring("<"),
                         buffer.fromstring("\254\001\000\006\017MaxInventoryItems")
                     }
                     game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
@@ -1080,7 +1101,7 @@ upgradesSection1:addToggle("Auto Upgrade: Flowers", nil, function(value)
             while getgenv().upgradeSettings.flowers do
                 pcall(function()
                     local args = {
-                        buffer.fromstring(":"),
+                        buffer.fromstring("<"),
                         buffer.fromstring("\254\001\000\006\016MaxFlowersPlaced")
                     }
                     game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
@@ -1099,7 +1120,7 @@ upgradesSection1:addToggle("Auto Upgrade: Customers", nil, function(value)
             while getgenv().upgradeSettings.customers do
                 pcall(function()
                     local args = {
-                        buffer.fromstring(":"),
+                        buffer.fromstring("<"),
                         buffer.fromstring("\254\001\000\006\fMaxCustomers")
                     }
                     game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
@@ -1118,7 +1139,7 @@ upgradesSection1:addToggle("Auto Upgrade: Enchantment Slots", nil, function(valu
             while getgenv().upgradeSettings.enchantmentSlots do
                 pcall(function()
                     local args = {
-                        buffer.fromstring(":"),
+                        buffer.fromstring("<"),
                         buffer.fromstring("\254\001\000\006\019MaxEnchantmentSlots")
                     }
                     game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
@@ -1137,7 +1158,7 @@ upgradesSection1:addToggle("Auto Upgrade: Containers", nil, function(value)
             while getgenv().upgradeSettings.containers do
                 pcall(function()
                     local args = {
-                        buffer.fromstring(":"),
+                        buffer.fromstring("<"),
                         buffer.fromstring("\254\001\000\006\rMaxContainers")
                     }
                     game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
@@ -1156,7 +1177,7 @@ upgradesSection1:addToggle("Auto Upgrade: Plot Items", nil, function(value)
             while getgenv().upgradeSettings.plotItems do
                 pcall(function()
                     local args = {
-                        buffer.fromstring(":"),
+                        buffer.fromstring("<"),
                         buffer.fromstring("\254\001\000\006\014MaxItemsOnPlot")
                     }
                     game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
@@ -1170,7 +1191,7 @@ end)
 upgradesSection2:addButton("Upgrade Inventory Items", function()
     pcall(function()
         local args = {
-            buffer.fromstring(":"),
+            buffer.fromstring("<"),
             buffer.fromstring("\254\001\000\006\017MaxInventoryItems")
         }
         game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
@@ -1180,7 +1201,7 @@ end)
 upgradesSection2:addButton("Upgrade Flowers", function()
     pcall(function()
         local args = {
-            buffer.fromstring(":"),
+            buffer.fromstring("<"),
             buffer.fromstring("\254\001\000\006\016MaxFlowersPlaced")
         }
         game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
@@ -1190,7 +1211,7 @@ end)
 upgradesSection2:addButton("Upgrade Customers", function()
     pcall(function()
         local args = {
-            buffer.fromstring(":"),
+            buffer.fromstring("<"),
             buffer.fromstring("\254\001\000\006\fMaxCustomers")
         }
         game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
@@ -1200,7 +1221,7 @@ end)
 upgradesSection2:addButton("Upgrade Enchantment Slots", function()
     pcall(function()
         local args = {
-            buffer.fromstring(":"),
+            buffer.fromstring("<"),
             buffer.fromstring("\254\001\000\006\019MaxEnchantmentSlots")
         }
         game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
@@ -1210,7 +1231,7 @@ end)
 upgradesSection2:addButton("Upgrade Containers", function()
     pcall(function()
         local args = {
-            buffer.fromstring(":"),
+            buffer.fromstring("<"),
             buffer.fromstring("\254\001\000\006\rMaxContainers")
         }
         game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
@@ -1220,7 +1241,7 @@ end)
 upgradesSection2:addButton("Upgrade Plot Items", function()
     pcall(function()
         local args = {
-            buffer.fromstring(":"),
+            buffer.fromstring("<"),
             buffer.fromstring("\254\001\000\006\014MaxItemsOnPlot")
         }
         game:GetService("ReplicatedStorage"):WaitForChild("Modules"):WaitForChild("Shared"):WaitForChild("Warp"):WaitForChild("Index"):WaitForChild("Event"):WaitForChild("Reliable"):FireServer(unpack(args))
@@ -1319,6 +1340,14 @@ statisticsSection1:addButton("Reset Profit Tracker", function()
             venyx:Notify("Error", "Could not access money data for reset")
         end
     end)
+end)
+
+-- Keybind to toggle UI (Left Shift)
+local UserInputService = game:GetService("UserInputService")
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if not gameProcessed and input.KeyCode == Enum.KeyCode.LeftShift then
+        venyx:toggle()
+    end
 end)
 
 local theme = venyx:addPage("Theme", 5012544693)
