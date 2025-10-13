@@ -1000,13 +1000,171 @@ window:AddButton(statisticsTab, "Reset Profit Tracker", function()
 end)
 
 -- Theme Tab
-window:AddLabel(themeTab, "Select Theme")
+getgenv().customThemes = getgenv().customThemes or {}
+getgenv().currentCustomTheme = getgenv().currentCustomTheme or {
+    Primary = Color3.fromRGB(0, 180, 255),
+    Secondary = Color3.fromRGB(22, 22, 25),
+    Tertiary = Color3.fromRGB(28, 28, 32),
+    Text = Color3.fromRGB(255, 255, 255),
+    TextSecondary = Color3.fromRGB(180, 180, 190),
+    Dark = Color3.fromRGB(18, 18, 20),
+    Accent = Color3.fromRGB(255, 100, 100)
+}
+
+window:AddLabel(themeTab, "Theme Presets")
 window:AddDivider(themeTab)
 
-local themes = {"Dark", "Ocean", "Sunset", "Forest", "Midnight", "Purple", "Cyberpunk", "Neon", "Dracula", "Nord", "Monokai", "Gruvbox", "Tokyo", "Rose"}
-window:AddDropdown(themeTab, "Theme Preset", themes, function(theme)
-    window:SetTheme(theme)
-    window:Notify({Title = "Theme Changed", Message = theme .. " theme applied", Type = "Success"})
+local function getThemeList()
+    local themes = {"Dark", "Ocean", "Sunset", "Forest", "Midnight", "Purple", "Cyberpunk", "Neon", "Dracula", "Nord", "Monokai", "Gruvbox", "Tokyo", "Rose"}
+    for themeName, _ in pairs(getgenv().customThemes) do
+        if not table.find(themes, themeName) then
+            table.insert(themes, themeName)
+        end
+    end
+    return themes
+end
+
+local themeDropdownContainer = nil
+local currentThemeDropdown = nil
+
+local function updateThemeDropdown()
+    -- Store the old container reference
+    local oldContainer = themeDropdownContainer
+    
+    -- Create new dropdown
+    currentThemeDropdown = window:AddDropdown(themeTab, "Theme Preset", getThemeList(), function(theme)
+        if getgenv().customThemes[theme] then
+            window:CreateCustomTheme(getgenv().customThemes[theme])
+            window:Notify({Title = "Custom Theme", Message = theme .. " loaded", Type = "Success"})
+        else
+            window:SetTheme(theme)
+            window:Notify({Title = "Theme Changed", Message = theme .. " applied", Type = "Success"})
+        end
+    end)
+    
+    -- Store reference to the new container
+    themeDropdownContainer = currentThemeDropdown
+    
+    -- If there was an old container, swap their LayoutOrders and then delete the old one
+    if oldContainer and oldContainer.Parent then
+        local oldOrder = oldContainer.LayoutOrder
+        themeDropdownContainer.LayoutOrder = oldOrder
+        oldContainer:Destroy()
+    end
+end
+
+updateThemeDropdown()
+
+window:AddDivider(themeTab)
+window:AddLabel(themeTab, "Custom Theme Creator")
+window:AddDivider(themeTab)
+
+window:AddColorPicker(themeTab, "Primary Color", getgenv().currentCustomTheme.Primary, function(color)
+    getgenv().currentCustomTheme.Primary = color
+end)
+
+window:AddColorPicker(themeTab, "Secondary Color", getgenv().currentCustomTheme.Secondary, function(color)
+    getgenv().currentCustomTheme.Secondary = color
+end)
+
+window:AddColorPicker(themeTab, "Tertiary Color", getgenv().currentCustomTheme.Tertiary, function(color)
+    getgenv().currentCustomTheme.Tertiary = color
+end)
+
+window:AddColorPicker(themeTab, "Text Color", getgenv().currentCustomTheme.Text, function(color)
+    getgenv().currentCustomTheme.Text = color
+end)
+
+window:AddColorPicker(themeTab, "Secondary Text Color", getgenv().currentCustomTheme.TextSecondary, function(color)
+    getgenv().currentCustomTheme.TextSecondary = color
+end)
+
+window:AddColorPicker(themeTab, "Dark Color", getgenv().currentCustomTheme.Dark, function(color)
+    getgenv().currentCustomTheme.Dark = color
+end)
+
+window:AddColorPicker(themeTab, "Accent Color", getgenv().currentCustomTheme.Accent, function(color)
+    getgenv().currentCustomTheme.Accent = color
+end)
+
+window:AddDivider(themeTab)
+
+window:AddButton(themeTab, "Preview Custom Theme", function()
+    window:CreateCustomTheme(getgenv().currentCustomTheme)
+    window:Notify({Title = "Preview", Message = "Custom theme applied", Type = "Info"})
+end)
+
+window:AddTextBox(themeTab, "Theme Name", function(text)
+    if text and text ~= "" then
+        getgenv().customThemes[text] = {
+            Primary = getgenv().currentCustomTheme.Primary,
+            Secondary = getgenv().currentCustomTheme.Secondary,
+            Tertiary = getgenv().currentCustomTheme.Tertiary,
+            Text = getgenv().currentCustomTheme.Text,
+            TextSecondary = getgenv().currentCustomTheme.TextSecondary,
+            Dark = getgenv().currentCustomTheme.Dark,
+            Accent = getgenv().currentCustomTheme.Accent
+        }
+        window:Notify({Title = "Theme Saved", Message = "'" .. text .. "' saved successfully", Type = "Success"})
+        
+        -- Update dropdown with new theme list
+        updateThemeDropdown()
+    end
+end)
+
+window:AddDivider(themeTab)
+window:AddLabel(themeTab, "Manage Custom Themes")
+window:AddDivider(themeTab)
+
+window:AddButton(themeTab, "Delete Custom Theme", function()
+    local customThemeNames = {}
+    for themeName, _ in pairs(getgenv().customThemes) do
+        table.insert(customThemeNames, themeName)
+    end
+    
+    if #customThemeNames == 0 then
+        window:Notify({Title = "No Themes", Message = "No custom themes to delete", Type = "Warning"})
+        return
+    end
+    
+    window:ShowDialog({
+        Title = "Delete Custom Theme",
+        Message = "Enter the exact name of the theme to delete:",
+        Buttons = {
+            {"Cancel", function() end},
+            {"Confirm", function()
+                window:Notify({Title = "Delete Theme", Message = "Type theme name in textbox above", Type = "Info"})
+            end}
+        }
+    })
+end)
+
+window:AddTextBox(themeTab, "Delete Theme Name", function(text)
+    if text and text ~= "" then
+        if getgenv().customThemes[text] then
+            getgenv().customThemes[text] = nil
+            window:Notify({Title = "Theme Deleted", Message = "'" .. text .. "' removed", Type = "Success"})
+            
+            -- Update dropdown to remove deleted theme
+            updateThemeDropdown()
+        else
+            window:Notify({Title = "Not Found", Message = "Theme '" .. text .. "' doesn't exist", Type = "Error"})
+        end
+    end
+end)
+
+window:AddButton(themeTab, "List All Custom Themes", function()
+    local customThemeNames = {}
+    for themeName, _ in pairs(getgenv().customThemes) do
+        table.insert(customThemeNames, themeName)
+    end
+    
+    if #customThemeNames == 0 then
+        window:Notify({Title = "Custom Themes", Message = "No custom themes saved", Type = "Info"})
+    else
+        local themeList = table.concat(customThemeNames, ", ")
+        window:Notify({Title = "Custom Themes", Message = themeList, Type = "Info", Duration = 5})
+    end
 end)
 
 -- Settings Tab
