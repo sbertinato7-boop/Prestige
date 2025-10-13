@@ -1,5 +1,6 @@
 local PrestigeUI = loadstring(game:HttpGet("https://raw.githubusercontent.com/sbertinato7-boop/PrestigeUILib/refs/heads/main/main"))()
 local window = PrestigeUI:Create("Prestige Hub")
+window:SetTheme("Ocean")
 
 -- Global variables
 getgenv().customerWalkSpeed = 16
@@ -1194,3 +1195,4 @@ window:AddButton(settingsTab, "Unload Hub", function()
 end)
 
 window:Notify({Title = "Prestige Hub", Message = "Successfully loaded!", Type = "Success", Duration = 3})
+
