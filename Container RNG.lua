@@ -821,13 +821,18 @@ window:AddToggle(customersTab, "Enable Customer Speed", function(value)
     end
 end)
 
-window:AddSlider(customersTab, 1, 10, 1, function(value)
+window:AddSlider(customersTab, "Customer Speed", 1, 10, 1, function(value)
     local actualSpeed = value * 16
     getgenv().customerWalkSpeed = actualSpeed
+
     if getgenv().customerSpeedEnabled then
         setAllCustomersSpeed(actualSpeed)
     end
-end)
+end, {
+    Suffix = "x",       -- display multiplier
+    Decimals = 0,       -- integer slider
+    ShowMinMax = true
+})
 
 -- Statistics Tab
 window:AddLabel(statisticsTab, "Profit Tracker")
@@ -1034,12 +1039,18 @@ end)
 -- Settings Tab
 window:AddLabel(settingsTab, "Player Settings")
 window:AddSection(settingsTab, "Player Walkspeed")
-window:AddSlider(settingsTab, 16, 500, 16, function(value)
-    local player = game.Players.LocalPlayer
+local player = game.Players.LocalPlayer
+local defaultWalkSpeed = (player and player.Character and player.Character:FindFirstChild("Humanoid")) and player.Character.Humanoid.WalkSpeed or 16
+
+window:AddSlider(settingsTab, "Player WalkSpeed", 16, 500, defaultWalkSpeed, function(value)
     if player and player.Character and player.Character:FindFirstChild("Humanoid") then
         player.Character.Humanoid.WalkSpeed = value
     end
-end)
+end, {
+    Suffix = " studs/s",  -- show units
+    Decimals = 0,
+    ShowMinMax = true
+})
 
 window:AddButton(settingsTab, "Unload Hub", function()
     window:Notify({Title = "Prestige Hub", Message = "Unloading hub...", Type = "Info"})
